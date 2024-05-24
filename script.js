@@ -50,7 +50,7 @@ async function getExchangeRate() {
             const response = await fetch(url);
             const result = await response.json();
             const exchangeRate = result.conversion_rates[toCurrency.value];
-            const totalAmount = amountVal * exchangeRate;
+            const totalAmount = (amountVal * exchangeRate).toFixed(2);
             finalMsg.innerText = `${amountVal} ${fromCurrency.value} = ${totalAmount} ${toCurrency.value}`;
         } catch (error) {
             console.error("Error fetching exchange rates:", error);
