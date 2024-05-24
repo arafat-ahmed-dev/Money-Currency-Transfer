@@ -2,6 +2,8 @@ const dropDowns= document.querySelectorAll(".drop-down select");
 const btn = document.querySelector("button");
 const fromCurrency = document.querySelector(".from select");
 const toCurrency = document.querySelector(".to select");
+const arrowIcon = document.querySelector("i");
+const finalMsg = document.querySelector(".final-msg")
 
 for(let select of dropDowns){
     for (code in countryList){
@@ -33,9 +35,10 @@ const updateFlag = async(element) =>{
     img.src= newsrc;
 };
 
-function getExchangeRate() {
+async function getExchangeRate() {
     document.querySelector("button").addEventListener("click", async(evt)=> {
         evt.preventDefault();
+        finalMsg.innerText = "Getting exchange rate...";
         const amount = document.querySelector("form input");
         let amountVal = amount.value;
         if(amountVal == "" || amountVal == "0"){
@@ -48,9 +51,18 @@ function getExchangeRate() {
             const result = await response.json();
             const exchangeRate = result.conversion_rates[toCurrency.value];
             const totalAmount = amountVal * exchangeRate;
-            document.querySelector(".final-msg").innerText = `${amountVal} ${fromCurrency.value} = ${totalAmount} ${toCurrency.value}`;
+            finalMsg.innerText = `${amountVal} ${fromCurrency.value} = ${totalAmount} ${toCurrency.value}`;
         } catch (error) {
             console.error("Error fetching exchange rates:", error);
         }
     })
 }
+arrowIcon.addEventListener("click", ()=>{
+    [fromCurrency.value, toCurrency.value] = [toCurrency.value, fromCurrency.value];
+    [fromCurrency, toCurrency].forEach((select) => {
+        const code = select.value;
+        const imgTag = select.parentElement.querySelector("img");
+        imgTag.src = `https://flagsapi.com/${countryList[code]}/flat/64.png`;
+    });
+    getExchangeRate();
+});

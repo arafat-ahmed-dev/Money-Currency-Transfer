@@ -28,6 +28,9 @@ h2 , i{
   text-align: center;
   font-size: 25px;
 }
+i{
+  cursor: pointer;
+}
 .amount p {
   font-size: 23px;
   padding-bottom: 5px;
@@ -36,6 +39,7 @@ form{
   margin: 2rem 0 1rem 0;
 }
 form select, button, input{
+  cursor: pointer;
   width: 100%;
   padding: 0.5rem;
   border: none;
@@ -95,4 +99,8 @@ button{
   border-radius: 20px;
   cursor: pointer;
   margin-top: 7px;
+}
+button:hover{
+  background-color:#028391 ;
+  color: #fff;
 }
