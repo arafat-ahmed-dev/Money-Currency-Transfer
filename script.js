@@ -36,12 +36,12 @@ const updateFlag = async(element) =>{
 };
 
 async function getExchangeRate() {
-    document.querySelector("button").addEventListener("click", async(evt)=> {
+    btn.addEventListener("click", async(evt)=> {
         evt.preventDefault();
         finalMsg.innerText = "Getting exchange rate...";
         const amount = document.querySelector("form input");
         let amountVal = amount.value;
-        if(amountVal == "" || amountVal == "0"){
+        if(amountVal == "" || amountVal == "0" || isNaN(amountVal)){
             amount.value = "1";
             amountVal = 1;
         }
